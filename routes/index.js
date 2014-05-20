@@ -19,7 +19,7 @@ exports.index = function(req, res){
 	}
 }
 exports.receiveMsg = function(req, res){
-	console.dir(req);
+	console.dir(req.rawBody);
 }
 function getAccessID(){
 	var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=ssor@qq.com&secret=0785150790";

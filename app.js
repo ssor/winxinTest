@@ -39,6 +39,17 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(function(req, res, next) {
+    var data = '';
+    req.setEncoding('utf8');
+    req.on('data', function(chunk) { 
+        data += chunk;
+    });
+    req.on('end', function() {
+        req.rawBody = data;
+    });
+    next();
+});
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
