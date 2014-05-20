@@ -5,6 +5,7 @@ var weixin = require('./weixinInterface');
 
 var token = 'nodewebgis';
 
+// getAccessID();
 
 exports.index = function(req, res){
 	var signature = req.query.signature;
@@ -17,6 +18,31 @@ exports.index = function(req, res){
 		res.send('');
 	}
 }
+exports.receiveMsg = function(req, res){
+	console.dir(req);
+}
+function getAccessID(){
+	var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=ssor@qq.com&secret=0785150790";
+	httpRequestGet(url).then(function(_response){
+		// console.dir(_response);
+		// console.log('*****************************')
+		// console.dir(_response[0]);
+		// console.log('*****************************')
+		var data = _response[0].body;
+		console.log(data);
+		try{
+			// {"access_token":"ACCESS_TOKEN","expires_in":7200}
+			var list = JSON.parse(data);
+			access_token = list.access_token;
+
+		}catch(e){
+			console.log(data.error);
+		}
+	}).catch(function(error){
+		console.log('error <= getAccessID '.error);
+	});
+}
+
 
 exports.overview = function(req, res){
 	res.render('overview');

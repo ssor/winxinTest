@@ -3,6 +3,7 @@
  * Module dependencies.
  */
 
+access_token = null;
 
 var colors = require('colors');
 
@@ -20,6 +21,10 @@ colors.setTheme({
 });
 
 var Q                  = require('q');
+
+var request = require('request');
+httpRequestGet = Q.denodeify(request.get);
+httpRequestPost = Q.denodeify(request.post);
 
 var express = require('express');
 var routes = require('./routes');
@@ -43,7 +48,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
 app.get('/', routes.index);
+app.post('/', routes.receiveMsg);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log(('weixin message server listening on port ' + app.get('port')).info);
