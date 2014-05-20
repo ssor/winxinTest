@@ -44,11 +44,14 @@ app.use(function(req, res, next) {
     req.setEncoding('utf8');
     req.on('data', function(chunk) { 
         data += chunk;
+		
+		console.log('=> ' + data);
     });
     req.on('end', function() {
         req.rawBody = data;
+		next();
     });
-    next();
+    
 });
 app.use(express.bodyParser());
 app.use(express.methodOverride());

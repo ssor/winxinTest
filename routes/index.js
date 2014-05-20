@@ -20,6 +20,8 @@ exports.index = function(req, res){
 }
 exports.receiveMsg = function(req, res){
 	console.dir(req.rawBody);
+	//'<xml><URL><![CDATA[http://111.67.197.251]]></URL><ToUserName><![CDATA[ssor@qq.com]]></ToUserName><FromUserName><![CDATA[zhangqzh]]></FromUserName><CreateTime>123456</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[testÖÐÎÄ]]></Content><MsgId>8989787</MsgId></xml>'
+
 }
 function getAccessID(){
 	var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=ssor@qq.com&secret=0785150790";
