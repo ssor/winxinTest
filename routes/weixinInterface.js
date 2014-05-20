@@ -17,7 +17,7 @@ function isLegel(signature,timestamp,nonce,token){
 	var hasher=crypto.createHash("sha1");
 	var msg=array[0]+array[1]+array[2];
 	hasher.update(msg);
-	var msg=hasher.digest('h<span></span>ex');//计算SHA1值
+	var msg=hasher.digest('hex');//计算SHA1值
 	console.log('msg => ' + msg);
 	if(msg==signature){
 	  return true;
