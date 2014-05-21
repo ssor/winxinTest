@@ -1,8 +1,14 @@
 
 
 var _                  = require('underscore');
+var Q                  = require('q');
+var xml2js             = require('xml2js');
+
+
 var weixin = require('./weixinInterface');
 
+var parser = new xml2js.Parser();
+parseXml = Q.nbind(parser.parseString, parser);
 var token = 'nodewebgis';
 
 // getAccessID();
@@ -20,8 +26,11 @@ exports.index = function(req, res){
 }
 exports.receiveMsg = function(req, res){
 	console.dir(req.rawBody);
-	//'<xml><URL><![CDATA[http://111.67.197.251]]></URL><ToUserName><![CDATA[ssor@qq.com]]></ToUserName><FromUserName><![CDATA[zhangqzh]]></FromUserName><CreateTime>123456</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[test����]]></Content><MsgId>8989787</MsgId></xml>'
+	// parseComingInMessage(req.rawBody).then(function(_result){
 
+	// })
+	var url = "http://111.67.197.251:9002/bagageStatusIndex/b007";
+	res.send('点击链接查看单号状态：' + url);
 }
 function getAccessID(){
 	var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=ssor@qq.com&secret=0785150790";
@@ -44,12 +53,35 @@ function getAccessID(){
 		console.log('error <= getAccessID '.error);
 	});
 }
+exports.parseComingInMessage = parseComingInMessage;
+function parseComingInMessage(_msg){
+	return parseXml(_msg).then(function(_result){
+		var f = function(_obj){
+			return function(_property){
+				return _.has(_obj, _property)
+			};
+		};
+		if(f(_result)('xml')){
+			var resultxmlFunc = f(_result.xml);
+			if(resultxmlFunc('ToUserName') && resultxmlFunc('FromUserName') && resultxmlFunc('CreateTime')
+				&& resultxmlFunc('MsgType') && resultxmlFunc('MsgId') && resultxmlFunc('Content')){
+				var resultxml = _result.xml;
+				return {ToUserName: resultxml.ToUserName, FromUserName: resultxml.FromUserName
+						, CreateTime: resultxml.CreateTime, MsgType: resultxml.MsgType, MsgId: resultxml.MsgId
+						, Content: resultxml.Content};
+			}else{
+				throw new Error('propertyError');
+			} 
+		}else{
+			throw new Error('DataErrorXml');
+		}
+	})
+}
 
-
+//*********************************************************
 exports.overview = function(req, res){
 	res.render('overview');
 };
 exports.indexAPI = function(req, res){
 	res.render('indexAPI', {title:'API Test'});
 }
-//*********************************************************
