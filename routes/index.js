@@ -6,6 +6,7 @@ var xml2js             = require('xml2js');
 var weixin = require('./weixinInterface');
 var xml = require('xml');
 var Message = require('./Message');
+var NewsMessage = require('./NewsMessage');
 
 var parser = new xml2js.Parser();
 parseXml = Q.nbind(parser.parseString, parser);
@@ -29,9 +30,12 @@ exports.receiveMsg = function(req, res){
 	parseComingInMessage(req.rawBody).then(function(_receivedMsg){
 		var url = "http://111.67.197.251:9002/bagageStatusIndex/b007";
 		var content = '点击链接查看单号状态：' + url;
-		var resMessage = new Message(_receivedMsg.FromUserName, 
-			_receivedMsg.ToUserName, _receivedMsg.CreateTime, 
-			_receivedMsg.MsgType, content);
+		// var resMessage = new Message(_receivedMsg.FromUserName, 
+		// 	_receivedMsg.ToUserName, _receivedMsg.CreateTime, 
+		// 	_receivedMsg.MsgType, content);
+		var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
+		var picUrl = 'http://111.67.197.251:9002/Image/demoImage.png';
+		resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置', picUrl, picUrl);
 		var xml = buildXml(resMessage.getPrepareXmlBuilding());
 		console.log("<= " + xml);
 		res.send(xml);
@@ -54,10 +58,6 @@ function parseComingInMessage(_msg){
 			if(resultxmlFunc('ToUserName') && resultxmlFunc('FromUserName') && resultxmlFunc('CreateTime')
 				&& resultxmlFunc('MsgType') && resultxmlFunc('MsgId') && resultxmlFunc('Content')){
 				var resultxml = _result.xml;
-				// console.dir(resultxml);
-				// return {ToUserName: resultxml.ToUserName, FromUserName: resultxml.FromUserName
-				// 		, CreateTime: resultxml.CreateTime, MsgType: resultxml.MsgType, MsgId: resultxml.MsgId
-				// 		, Content: resultxml.Content};
 				return new Message(resultxml.ToUserName[0], resultxml.FromUserName[0], resultxml.CreateTime[0], resultxml.MsgType[0], resultxml.Content[0], resultxml.MsgId[0]);
 			}else{
 				throw new Error('propertyError');

@@ -2,6 +2,8 @@ var _                  = require('underscore');
 var Q                  = require('q');
 var xml2js             = require('xml2js');
 var index = require('../routes/index');
+var NewsMessage = require('../routes/NewsMessage');
+
 require("should");
 
 
@@ -35,6 +37,13 @@ describe('demo test => ', function(){
 		}).catch(function(err){
 			console.log(err.message);
 		})		
+	})
+
+	it('initial NewsMessage => ', function(){
+		var NewsMessage1 = new NewsMessage('to1', 'former', 12345);
+		NewsMessage1.addItem('订单状态查询', '最新位置：', '/image/pic1.png', '');
+		var xml = index.buildXml(NewsMessage1.getPrepareXmlBuilding());
+		console.log(xml);
 	})
 });
 
