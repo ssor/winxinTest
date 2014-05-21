@@ -34,7 +34,7 @@ exports.receiveMsg = function(req, res){
 		// 	_receivedMsg.ToUserName, _receivedMsg.CreateTime, 
 		// 	_receivedMsg.MsgType, content);
 		var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
-		var picUrl = 'http://111.67.197.251:9002/Image/demoImage.png';
+		var picUrl = 'http://111.67.197.251/Image/demoImage.png';
 		resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置', picUrl, picUrl);
 		var xml = buildXml(resMessage.getPrepareXmlBuilding());
 		console.log("<= " + xml);
