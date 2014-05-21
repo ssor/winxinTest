@@ -21,10 +21,15 @@ describe('demo test => ', function(){
 	});
 	it('parseComingInMessage => ', function(){
 		index.parseComingInMessage(msgRequest).then(function(_obj){
+			console.log('obj => ');
 			console.dir(_obj);
+			console.log('xml => ');
+			var xml = index.buildXml(_obj.getPrepareXmlBuilding());
+			console.dir(xml);
 		}).catch(function(err){
 			console.log(err.message);
 		})
+		return;
 		index.parseComingInMessage(msgRequest2).then(function(_obj){
 			console.dir(_obj);
 		}).catch(function(err){
@@ -32,6 +37,7 @@ describe('demo test => ', function(){
 		})		
 	})
 });
+
 
 
 
