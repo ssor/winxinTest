@@ -36,7 +36,7 @@ exports.receiveMsg = function(req, res){
 						// var url = "http://111.67.197.251:9002/bagageStatusIndex/b001";
 						var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
 						var picUrl = webgisHost + 'Image/carPos/' + _status.imageName;
-						resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置('+ _status.timestamp +')', picUrl, picUrl);
+						resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置('+ _status.timeStamp +')', picUrl, picUrl);
 						var xml = buildXml(resMessage.getPrepareXmlBuilding());
 						console.log("<= " + xml);
 						res.send(xml);					
