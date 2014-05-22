@@ -13,6 +13,7 @@ parseXml = Q.nbind(parser.parseString, parser);
 var token = 'nodewebgis';
 
 // getAccessID();
+setInterval(checkBagageStatus, 5000);
 
 exports.index = function(req, res){
 	var signature = req.query.signature;
@@ -28,23 +29,40 @@ exports.index = function(req, res){
 exports.receiveMsg = function(req, res){
 	console.dir(req.rawBody);
 	parseComingInMessage(req.rawBody).then(function(_receivedMsg){
-		var url = "http://111.67.197.251:9002/bagageStatusIndex/b007";
-		var content = '点击链接查看单号状态：' + url;
-		// var resMessage = new Message(_receivedMsg.FromUserName, 
-		// 	_receivedMsg.ToUserName, _receivedMsg.CreateTime, 
-		// 	_receivedMsg.MsgType, content);
-		var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
-		var picUrl = 'http://111.67.197.251/Image/demoImage512.png';
-		resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置', picUrl, picUrl);
-		var xml = buildXml(resMessage.getPrepareXmlBuilding());
-		console.log("<= " + xml);
-		res.send(xml);
+
+		return  checkBagageStatus(_receivedMsg.Content)
+				.then(function(_status){
+					if(_status.status == 'ok'){
+						// var url = "http://111.67.197.251:9002/bagageStatusIndex/b001";
+						var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
+						var picUrl = webgisHost + 'Image/carPos/' + _status.imageName;
+						resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置('+ _status.timestamp +')', picUrl, picUrl);
+						var xml = buildXml(resMessage.getPrepareXmlBuilding());
+						console.log("<= " + xml);
+						res.send(xml);					
+					}else{
+						throw new Error(_status.message);
+					}
+				})
 	}).catch(function(error){
 		console.log(error.message.error);
 		res.send('');
 	})
 }
-
+function checkBagageStatus(_bagageID){
+	return httpRequestGet(webgisHost + 'getBagageStatus4Weixin/' + _bagageID)
+			.then(function(_response){
+				var data = _response[0].body;
+				console.log(data);
+				try{
+					var list = JSON.parse(data);
+					return list;
+				}catch(e){
+					console.log(data.error);
+					throw new Error(e.message);
+				}
+			});
+}
 exports.parseComingInMessage = parseComingInMessage;
 function parseComingInMessage(_msg){
 	return parseXml(_msg).then(function(_result){

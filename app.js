@@ -4,6 +4,8 @@
  */
 
 access_token = null;
+var webgisHost = 'http://111.67.197.251:9002/';
+  // var webgisHost = 'http://127.0.0.1:9002/';
 
 var colors = require('colors');
 
@@ -34,7 +36,7 @@ var path = require('path');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 8001);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
