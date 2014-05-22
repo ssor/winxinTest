@@ -13,7 +13,7 @@ parseXml = Q.nbind(parser.parseString, parser);
 var token = 'nodewebgis';
 
 // getAccessID();
-setInterval(checkBagageStatus, 5000);
+// setInterval(checkBagageStatus, 5000);
 
 exports.index = function(req, res){
 	var signature = req.query.signature;
