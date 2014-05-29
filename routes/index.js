@@ -30,6 +30,7 @@ exports.receiveMsg = function(req, res){
 	console.dir(req.rawBody);
 	parseComingInMessage(req.rawBody).then(function(_receivedMsg){
 		var list = checkMsgList(_receivedMsg.Content);
+		console.dir(list);
 		if(list === false){
 			return  checkBagageStatus(_receivedMsg.Content)
 					.then(function(_status){

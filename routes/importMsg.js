@@ -24,9 +24,12 @@ exports.addMsg = function(req, res){
 		res.send('error');return;
 	}
 	var msg = _.chain(importedMessageList).findWhere({msgID: msgID, msgFlag: msgFlag}).value();
+	
 	if(msg === null){
+		console.log('addMsg new ');
 		importedMessageList.push({msgFlag: msgFlag, msgID: msgID, content: content, timeStamp: timeStamp});
 	}else{
+		console.log('addMsg update ');
 		msg.content = content;
 		msg.timeStamp = timeStamp;
 	}
