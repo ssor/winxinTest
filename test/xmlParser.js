@@ -51,12 +51,7 @@ describe('demo test => ', function(){
 	})
 
 	it('request bagage status =>', function(){
-		// request.get('http://www.baidu.com', function(err, _response, _body){
-		// 	console.dir(_response);
-		// 	console.dir(body);
-		// });
-
-		// httpRequestGet('http://www.baidu.com')
+		return;
 		httpRequestGet('http://127.0.0.1:9002/getBagageStatus4Weixin/b111')
 		.then(function(_response, _body){
 			console.dir(_response);
@@ -72,9 +67,33 @@ describe('demo test => ', function(){
 				console.log('error <= '.error);
 		});
 	})
+
+	it('obj property =>', function(){
+
+		var pro1 = {property1: 'propertytest1'};
+		var obj1 = initialSelector(pro1);
+		console.dir(obj1);
+		(_.isEqual(obj1, pro1)).should.be.true;
+
+		var pro2 = {property2: null};
+		var obj2 = initialSelector(pro2);
+		console.dir(obj2);
+		console.log(_.chain(obj2).keys().size().value());
+		(_.chain(obj2).keys().size().value() == 0).should.be.true;
+
+	})
 });
 
-
+function initialSelector(opts){
+	if(opts == null) return {};
+	var obj = {};
+	_.chain(opts).keys().reduce(function(memo, _key){
+		if(opts[_key] != null){
+			memo[_key] = opts[_key];
+		}
+	}, obj).value();
+	return obj;
+}
 
 
 

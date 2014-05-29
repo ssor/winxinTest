@@ -2,13 +2,13 @@
 /**
  * Module dependencies.
  */
-
-access_token = null;
-webgisHost = 'http://111.67.197.251:9002/';
+token               = 'nodewebgis';
+access_token        = null;
+webgisHost          = 'http://111.67.197.251:9002/';
   // webgisHost = 'http://127.0.0.1:9002/';
+importedMessageList = [];
 
-var colors = require('colors');
-
+var colors          = require('colors');
 colors.setTheme({
   silly: 'rainbow',
   input: 'grey',
@@ -22,18 +22,19 @@ colors.setTheme({
   error: 'red'
 });
 
-var Q                  = require('q');
+var Q               = require('q');
 
-var request = require('request');
-httpRequestGet = Q.denodeify(request.get);
-httpRequestPost = Q.denodeify(request.post);
+var request         = require('request');
+httpRequestGet      = Q.denodeify(request.get);
+httpRequestPost     = Q.denodeify(request.post);
 
-var express = require('express');
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
+var express         = require('express');
+var routes          = require('./routes');
+var http            = require('http');
+var path            = require('path');
+var importMsg = require('./routes/importMsg');
 
-var app = express();
+var app             = express();
 
 // all environments
 app.set('port', process.env.PORT || 80);
@@ -67,6 +68,9 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.post('/', routes.receiveMsg);
+app.post('/addMsg', importMsg.addMsg);
+app.get('/msgList', importMsg.msgList);
+app.get('/deleteMsg', importMsg.deleteMsg);
 
 
 http.createServer(app).listen(app.get('port'), function(){

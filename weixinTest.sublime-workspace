@@ -4,6 +4,70 @@
 		"selected_items":
 		[
 			[
+				"pro1",
+				"pro1"
+			],
+			[
+				"pro",
+				"property"
+			],
+			[
+				"ini",
+				"initialObj"
+			],
+			[
+				"ite",
+				"items"
+			],
+			[
+				"Ar",
+				"Articles"
+			],
+			[
+				"_",
+				"_cdata"
+			],
+			[
+				"new",
+				"NewsMessage1"
+			],
+			[
+				"nw",
+				"NewsMessage1"
+			],
+			[
+				"Ne",
+				"NewsMessage"
+			],
+			[
+				"Ms",
+				"MsgType"
+			],
+			[
+				"to",
+				"ToUserName"
+			],
+			[
+				"con",
+				"Content"
+			],
+			[
+				"bu",
+				"buildXml"
+			],
+			[
+				"re",
+				"resultxmlFunc"
+			],
+			[
+				"pa",
+				"parseXml"
+			],
+			[
+				"pars",
+				"parseXml"
+			],
+			[
 				"wi",
 				"weixin"
 			],
@@ -130,10 +194,6 @@
 			[
 				"sta",
 				"startMnting"
-			],
-			[
-				"new",
-				"newBagage"
 			],
 			[
 				"dat",
@@ -276,16 +336,8 @@
 				"deleted"
 			],
 			[
-				"con",
-				"console"
-			],
-			[
 				"sim",
 				"simpleParser"
-			],
-			[
-				"pa",
-				"parserType"
 			],
 			[
 				"_read",
@@ -368,10 +420,6 @@
 				"inventoryUnit"
 			],
 			[
-				"pro",
-				"prototype"
-			],
-			[
 				"set",
 				"setInterval"
 			],
@@ -416,10 +464,6 @@
 				"epcList"
 			],
 			[
-				"ini",
-				"initialChart_misreading"
-			],
-			[
 				"an",
 				"antenas"
 			],
@@ -430,10 +474,6 @@
 			[
 				"data",
 				"dataSeriesReadInterval"
-			],
-			[
-				"re",
-				"records"
 			],
 			[
 				"las",
@@ -474,46 +514,6 @@
 			[
 				"web",
 				"websocketEventCenter"
-			],
-			[
-				"wsu",
-				"wsUriEventCenter"
-			],
-			[
-				"fi",
-				"filter"
-			],
-			[
-				"_ep",
-				"_epcTypeMap"
-			],
-			[
-				"va",
-				"value"
-			],
-			[
-				"ep",
-				"epcListOfSameType"
-			],
-			[
-				"typ",
-				"typeInfo"
-			],
-			[
-				"E",
-				"EpcServerIP"
-			],
-			[
-				"tg",
-				"tags"
-			],
-			[
-				"serv",
-				"server"
-			],
-			[
-				"sub",
-				"subscribedtags"
 			]
 		]
 	},
@@ -523,15 +523,7 @@
 			"file": "app.js",
 			"settings":
 			{
-				"buffer_size": 1066,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "routes/weixinInterface.js",
-			"settings":
-			{
-				"buffer_size": 580,
+				"buffer_size": 1604,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +531,31 @@
 			"file": "routes/index.js",
 			"settings":
 			{
-				"buffer_size": 627,
+				"buffer_size": 3731,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "routes/Message.js",
+			"settings":
+			{
+				"buffer_size": 694,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/xmlParser.js",
+			"settings":
+			{
+				"buffer_size": 2978,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "routes/NewsMessage.js",
+			"settings":
+			{
+				"buffer_size": 1160,
 				"line_ending": "Unix"
 			}
 		}
@@ -568,6 +584,12 @@
 	},
 	"file_history":
 	[
+		"/Users/ssor/Documents/program/nodejs/weixinTest/node_modules/request/package.json",
+		"/Users/ssor/Documents/program/nodejs/logisInfoServer/node_modules/request/package.json",
+		"/Users/ssor/Documents/program/nodejs/weixinTest/routes/weixinInterface.js",
+		"/Users/ssor/Documents/program/nodejs/weixinTest/node_modules/xml2js/package.json",
+		"/Users/ssor/Documents/program/nodejs/weixinTest/test/sensor1.js",
+		"/Users/ssor/Documents/program/nodejs/nodejsWebgis/app.js",
 		"/Users/ssor/Documents/program/nodejs/webgis/routes/api.js",
 		"/Users/ssor/Documents/program/nodejs/webgis/app.js",
 		"/Users/ssor/Documents/program/nodejs/webgis/views/index.ejs",
@@ -681,6 +703,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"initialObj",
+			"opt",
+			"obj",
+			"host",
+			"dir",
+			"MsgId",
+			"MsgType",
+			"CreateTime",
+			"FromUserName",
+			"ToUserName",
+			"productCurrentStateDB",
 			"timeFormater",
 			"removeBagageCarBinding",
 			"removedBagage",
@@ -797,18 +830,7 @@
 			"data",
 			"date2str",
 			"_item",
-			"updateTile",
-			"itemID",
-			"writeToScreen",
-			"addElementIDToList",
-			"loopToGetEventInfo",
-			");\n",
-			"addElementIDToList",
-			"elementIDList",
-			"img",
-			"itemTypes",
-			"username",
-			"authorize"
+			"updateTile"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -826,7 +848,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -834,15 +856,15 @@
 					"file": "app.js",
 					"settings":
 					{
-						"buffer_size": 1066,
+						"buffer_size": 1604,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								911,
-								911
+								741,
+								741
 							]
 						],
 						"settings":
@@ -852,31 +874,31 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 204.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "routes/weixinInterface.js",
+					"file": "routes/index.js",
 					"settings":
 					{
-						"buffer_size": 580,
+						"buffer_size": 3731,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								512,
-								512
+								3135,
+								3135
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"word_wrap": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -886,23 +908,78 @@
 				},
 				{
 					"buffer": 2,
-					"file": "routes/index.js",
+					"file": "routes/Message.js",
 					"settings":
 					{
-						"buffer_size": 627,
+						"buffer_size": 694,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								413,
-								413
+								342,
+								342
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "test/xmlParser.js",
+					"settings":
+					{
+						"buffer_size": 2978,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2354,
+								2354
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 727.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "routes/NewsMessage.js",
+					"settings":
+					{
+						"buffer_size": 1160,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1159,
+								1159
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -955,6 +1032,10 @@
 		"selected_items":
 		[
 			[
+				"",
+				"test/xmlParser.js"
+			],
+			[
 				"ve",
 				"views/version.ejs"
 			],
@@ -965,10 +1046,6 @@
 			[
 				"in",
 				"routes/index.js"
-			],
-			[
-				"",
-				"/Users/ssor/Documents/program/nodejs/webgis/routes/user.js"
 			],
 			[
 				"ch",

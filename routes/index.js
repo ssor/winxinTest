@@ -7,10 +7,10 @@ var weixin = require('./weixinInterface');
 var xml = require('xml');
 var Message = require('./Message');
 var NewsMessage = require('./NewsMessage');
+var checkMsgList = require('./importMsg').checkMsgList;
 
 var parser = new xml2js.Parser();
 parseXml = Q.nbind(parser.parseString, parser);
-var token = 'nodewebgis';
 
 // getAccessID();
 // setInterval(checkBagageStatus, 5000);
@@ -29,21 +29,32 @@ exports.index = function(req, res){
 exports.receiveMsg = function(req, res){
 	console.dir(req.rawBody);
 	parseComingInMessage(req.rawBody).then(function(_receivedMsg){
-
-		return  checkBagageStatus(_receivedMsg.Content)
-				.then(function(_status){
-					if(_status.status == 'ok'){
-						// var url = "http://111.67.197.251:9002/bagageStatusIndex/b001";
-						var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
-						var picUrl = webgisHost + 'Image/carPos/' + _status.imageName;
-						resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置('+ _status.timeStamp +')', picUrl, picUrl);
-						var xml = buildXml(resMessage.getPrepareXmlBuilding());
-						console.log("<= " + xml);
-						res.send(xml);					
-					}else{
-						throw new Error(_status.message);
-					}
-				})
+		var list = checkMsgList(_receivedMsg.Content);
+		if(list === false){
+			return  checkBagageStatus(_receivedMsg.Content)
+					.then(function(_status){
+						if(_status.status == 'ok'){
+							// var url = "http://111.67.197.251:9002/bagageStatusIndex/b001";
+							var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
+							var picUrl = webgisHost + 'Image/carPos/' + _status.imageName;
+							resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置('+ _status.timeStamp +')', picUrl, picUrl);
+							var xml = buildXml(resMessage.getPrepareXmlBuilding());
+							console.log("<= " + xml);
+							res.send(xml);					
+						}else{
+							throw new Error(_status.message);
+						}
+					})		
+		}else{
+			var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
+			var picUrl = '';
+			_.each(list, function(_msg){
+				resMessage.addItem(_msg.msgID, _msg.content + ' ' + _msg.timeStamp + '\\n', picUrl, picUrl);
+			});
+			var xml = buildXml(resMessage.getPrepareXmlBuilding());
+			console.log("<= " + xml);
+			res.send(xml);				
+		}
 	}).catch(function(error){
 		console.log(error.message.error);
 		res.send('');
