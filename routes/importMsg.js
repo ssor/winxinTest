@@ -14,18 +14,20 @@ exports.checkMsgList = function(_content){
 }
 
 exports.addMsg = function(req, res){
+	// console.log('addMsg => '.info);
 	var body 	  = req.body;
+	// console.dir(req.rawBody);
+	// console.dir(body);
 	var msgFlag   = body.msgFlag;
 	var msgID 	  = body.msgID;
 	var content   = body.content;
 	var timeStamp = timeFormater();
-
 	if(content == null || content.length <= 0){
 		res.send('error');return;
 	}
 	var msg = _.chain(importedMessageList).findWhere({msgID: msgID, msgFlag: msgFlag}).value();
-	
-	if(msg === null){
+	// console.dir(msg);
+	if(msg == null){
 		console.log('addMsg new ');
 		importedMessageList.push({msgFlag: msgFlag, msgID: msgID, content: content, timeStamp: timeStamp});
 	}else{

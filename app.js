@@ -42,19 +42,30 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(function(req, res, next) {
-    var data = '';
-    req.setEncoding('utf8');
-    req.on('data', function(chunk) { 
-        data += chunk;
-		
-		console.log('=> ' + data);
-    });
-    req.on('end', function() {
-        req.rawBody = data;
-		next();
-    });
+// app.use(function(req, res, next) {
+//     var data = '';
+//     req.setEncoding('utf8');
+//     req.on('data', function(chunk) { 
+//         data += chunk;
+//     		console.log('=> ' + data);
+//     });
+//     req.on('end', function() {
+//         req.rawBody = data;
+//         console.log('end => ' + data);
+//     		next();
+//     });
     
+// });
+app.use(function(req, res, next){
+  console.dir(req.headers);
+  if (req.is('text/*')) {
+    req.rawBody = '';
+    req.setEncoding('utf8');
+    req.on('data', function(chunk){ req.rawBody += chunk });
+    req.on('end', next);
+  } else {
+    next();
+  }
 });
 app.use(express.bodyParser());
 app.use(express.methodOverride());

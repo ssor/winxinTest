@@ -15,6 +15,11 @@ parseXml = Q.nbind(parser.parseString, parser);
 // getAccessID();
 // setInterval(checkBagageStatus, 5000);
 
+exports.test = function(req, res){
+	console.log('test =>');
+	res.send('ok');
+}
+
 exports.index = function(req, res){
 	var signature = req.query.signature;
 	var timestamp = req.query.timestamp;
