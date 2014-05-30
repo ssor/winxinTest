@@ -54,8 +54,9 @@ exports.receiveMsg = function(req, res){
 		}else{
 			var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
 			var picUrl = '';
+			resMessage.addItem('状态列表', '', picUrl, picUrl);
 			_.each(list, function(_msg){
-				resMessage.addItem(_msg.msgID, _msg.content + ' ' + _msg.timeStamp + '\\n', picUrl, picUrl);
+				resMessage.addItem(_msg.msgID + ' ' + _msg.content + ' ' + _msg.timeStamp, '', picUrl, picUrl);
 			});
 			var xml = buildXml(resMessage.getPrepareXmlBuilding());
 			console.log("<= " + xml);
