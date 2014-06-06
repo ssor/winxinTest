@@ -20,6 +20,9 @@ exports.test = function(req, res){
 	console.log('test =>');
 	res.send('ok');
 }
+exports.tucaoIndex = function(req, res){
+	res.render('index');
+}
 exports.getTucao = function(req, res){
 	var timeStamp = req.paras.timeStamp;
 	var list = _.chain(tucaoMessageList).filter(function(_tucao){
