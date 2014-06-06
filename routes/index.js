@@ -75,7 +75,9 @@ exports.receiveMsg = function(req, res){
 			case 'tucao':
 				var tucaoContent = _receivedMsg.Content.substr(0, _receivedMsg.Content.indexOf('#'));
 				var timeStamp = timeFormater();
-				tucaoMessageList.push({FromUserName: _receivedMsg.FromUserName, Content: tucaoContent, timeStamp: timeStamp});
+				var newTucao = {FromUserName: _receivedMsg.FromUserName, Content: tucaoContent, timeStamp: timeStamp};
+				tucaoMessageList.push(newTucao);
+				console.dir(newTucao);
 				res.send('');
 			break;
 		}
