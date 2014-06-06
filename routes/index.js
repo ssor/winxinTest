@@ -20,6 +20,15 @@ exports.test = function(req, res){
 	console.log('test =>');
 	res.send('ok');
 }
+exports.getTucao = function(req, res){
+	var timeStamp = req.paras.timeStamp;
+	var list = _.chain(tucaoMessageList).filter(function(_tucao){
+		return _tucao.timeStamp > timeStamp;
+	}).value;
+	console.log('later than ' + timeStamp);
+	console.dir(list);
+	res.send(JSON.stringify(list));
+}
 
 exports.index = function(req, res){
 	var signature = req.query.signature;
@@ -89,34 +98,34 @@ exports.receiveMsg = function(req, res){
 
 	return;
 
-		var list = checkMsgList(_receivedMsg.Content);
-		console.dir(list);
-		if(list === false){
-			return  checkBagageStatus(_receivedMsg.Content)
-					.then(function(_status){
-						if(_status.status == 'ok'){
-							// var url = "http://111.67.197.251:9002/bagageStatusIndex/b001";
-							var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
-							var picUrl = webgisHost + 'Image/carPos/' + _status.imageName;
-							resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置('+ _status.timeStamp +')', picUrl, picUrl);
-							var xml = buildXml(resMessage.getPrepareXmlBuilding());
-							console.log("<= " + xml);
-							res.send(xml);					
-						}else{
-							throw new Error(_status.message);
-						}
-					})		
-		}else{
-			var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
-			var picUrl = '';
-			resMessage.addItem('状态列表', '', picUrl, picUrl);
-			_.each(list, function(_msg){
-				resMessage.addItem(_msg.msgID + ' ' + _msg.content + ' ' + _msg.timeStamp, '', picUrl, picUrl);
-			});
-			var xml = buildXml(resMessage.getPrepareXmlBuilding());
-			console.log("<= " + xml);
-			res.send(xml);				
-		}	
+		// var list = checkMsgList(_receivedMsg.Content);
+		// console.dir(list);
+		// if(list === false){
+		// 	return  checkBagageStatus(_receivedMsg.Content)
+		// 			.then(function(_status){
+		// 				if(_status.status == 'ok'){
+		// 					// var url = "http://111.67.197.251:9002/bagageStatusIndex/b001";
+		// 					var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
+		// 					var picUrl = webgisHost + 'Image/carPos/' + _status.imageName;
+		// 					resMessage.addItem('订单状态查询', '单号'+ _receivedMsg.Content+'最新位置('+ _status.timeStamp +')', picUrl, picUrl);
+		// 					var xml = buildXml(resMessage.getPrepareXmlBuilding());
+		// 					console.log("<= " + xml);
+		// 					res.send(xml);					
+		// 				}else{
+		// 					throw new Error(_status.message);
+		// 				}
+		// 			})		
+		// }else{
+		// 	var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
+		// 	var picUrl = '';
+		// 	resMessage.addItem('状态列表', '', picUrl, picUrl);
+		// 	_.each(list, function(_msg){
+		// 		resMessage.addItem(_msg.msgID + ' ' + _msg.content + ' ' + _msg.timeStamp, '', picUrl, picUrl);
+		// 	});
+		// 	var xml = buildXml(resMessage.getPrepareXmlBuilding());
+		// 	console.log("<= " + xml);
+		// 	res.send(xml);				
+		// }	
 }
 function checkMsgState(_content, _stateList){
 	var state = _.chain(_stateList).filter(function(_state){
@@ -124,7 +133,8 @@ function checkMsgState(_content, _stateList){
 	}).find(function(_state){
 		return _content.indexOf(_state.separator) > 0;
 	}).value();
-	if(state == null) return _stateList[0];
+	if(state != null) return state 
+	else return _stateList[0];
 }
 function checkBagageStatus(_bagageID){
 	return httpRequestGet(webgisHost + 'getBagageStatus4Weixin/' + _bagageID)
