@@ -59,7 +59,7 @@ app.use(express.logger('dev'));
     
 // });
 app.use(function(req, res, next){
-  console.dir(req.headers);
+  // console.dir(req.headers);
   if (req.is('text/*')) {
     req.rawBody = '';
     req.setEncoding('utf8');
