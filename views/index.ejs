@@ -3,7 +3,7 @@
 <title>WebSocket Test</title>
     <script type="text/javascript" src = "/javascripts/jquery.js"></script>
     <script language="javascript" type="text/javascript">
-        var Uri = "http://" + window.location.href.substring(window.location.protocol.length) + '/getTucao';
+        var Uri = '/getTucao';
         // var wsUri = 'ws:' + window.location.href.substring(window.location.protocol.length);
         var timeStamp = '';
         var output;
@@ -12,6 +12,11 @@
             console.log(Uri);
             $.post(Uri, {timeStamp: timeStamp}, function(data){
                 console.log(data);
+				var list = JSON.parse(data);
+				var len = list.length;
+				for(var i = len -1; i >= 0; i--){
+					writeToScreen(list[i].timeStamp + '  ' + list[i].Content);
+				}
             });
             // createWebSocket();
         }

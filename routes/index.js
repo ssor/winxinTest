@@ -24,10 +24,10 @@ exports.tucaoIndex = function(req, res){
 	res.render('index');
 }
 exports.getTucao = function(req, res){
-	var timeStamp = req.paras.timeStamp;
+	var timeStamp = req.body.timeStamp;
 	var list = _.chain(tucaoMessageList).filter(function(_tucao){
 		return _tucao.timeStamp > timeStamp;
-	}).value;
+	}).value();
 	console.log('later than ' + timeStamp);
 	console.dir(list);
 	res.send(JSON.stringify(list));

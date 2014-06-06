@@ -85,7 +85,7 @@ app.post('/addMsg', importMsg.addMsg);
 app.get('/msgList', importMsg.msgList);
 app.get('/deleteMsg', importMsg.deleteMsg);
 app.post('/getTucao',routes.getTucao);
-app.get('tucao', routes.tucaoIndex);
+app.get('/tucao', routes.tucaoIndex);
 
 
 http.createServer(app).listen(app.get('port'), function(){
