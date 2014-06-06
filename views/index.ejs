@@ -10,15 +10,22 @@
         function init() {
             output = document.getElementById("output");
             console.log(Uri);
+            getTucaoList();
+            setInterval(getTucaoList, 2000);
+            // createWebSocket();
+        }
+        function getTucaoList(){
             $.post(Uri, {timeStamp: timeStamp}, function(data){
                 console.log(data);
-				var list = JSON.parse(data);
-				var len = list.length;
-				for(var i = len -1; i >= 0; i--){
-					writeToScreen(list[i].timeStamp + '  ' + list[i].Content);
-				}
-            });
-            // createWebSocket();
+                var list = JSON.parse(data);
+                var len = list.length;
+                for(var i = 0; i < len; i++){
+                    writeToScreen(list[i].timeStamp + '  ' + list[i].Content, rgb(0,0,0));
+                }
+                if(len > 0){
+                    timeStamp = list[len-1].timeStamp;
+                }
+            });            
         }
         function createWebSocket() {
             websocket = new WebSocket(wsUri);
@@ -57,12 +64,30 @@
             writeToScreen("SENT: " + message);
             websocket.send(message);
         }
-        function writeToScreen(message) {
+        // function writeToScreen(message) {
+        //     var pre = document.createElement("p");
+        //     pre.style.wordWrap = "break-word";
+        //     pre.innerHTML = message;
+        //     output.appendChild(pre);
+        // }
+        function writeToScreen(message, color) {
+            message = ('<span style="color: '+ color +';">'+ message +'</span> ');
             var pre = document.createElement("p");
             pre.style.wordWrap = "break-word";
             pre.innerHTML = message;
-            output.appendChild(pre);
+            if(output.childNodes.length >= 30){
+                for(i = output.childNodes.length -1; i >=0; i--){
+                    output.removeChild(output.childNodes[i]);
+                }
+            }
+            if(output.childNodes.length <= 0){
+                output.appendChild(pre);
+            }else{
+                output.insertBefore(pre, output.childNodes[0]);
+            }
+
         }
+
         window.addEventListener("load", init, false);
 </script>
 
