@@ -7,6 +7,8 @@ access_token        = null;
 webgisHost          = 'http://111.67.197.251:9002/';
   // webgisHost = 'http://127.0.0.1:9002/';
 importedMessageList = [];
+tucaoMessageList = [];
+
 
 var colors          = require('colors');
 colors.setTheme({

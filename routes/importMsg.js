@@ -3,13 +3,22 @@ var _                  = require('underscore');
 var timeFormater 	   = require('./timeFormat').getCurrentTime;
 
 exports.checkMsgList = function(_content){
-	var index = _content.indexOf('#');
-	if(index < 0){
+	var indexJing = _content.indexOf('#');
+	var indexMi = _content.indexOf('*');
+	if(indexJing <= 0 && indexMi <= 0){
 		return false;
 	}else{
-		var msgFlag = _content.substr(0, index);
-		var list = _.chain(importedMessageList).where({msgFlag: msgFlag}).value();
-		return list;
+		if(indexJing > 0){
+			var msgFlag   = _content.substr(0, index);
+			var list      = _.chain(importedMessageList).where({msgFlag: msgFlag}).value();
+			return list;
+		}
+		if(indexMi > 0){
+			var content   = _content.substr(0, index);
+			var timeStamp = timeFormater();
+			tucaoMessageList.push({content: content, timeStamp: timeStamp});
+			return true;
+		}
 	}
 }
 
