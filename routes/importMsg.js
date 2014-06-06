@@ -45,7 +45,7 @@ exports.addMsg = function(req, res){
 		msg.timeStamp = timeStamp;
 	}
 	console.log('addMsg =>'.info);
-	console.dir(msg);
+	// console.dir(msg);
 	res.send('ok');
 }
 exports.msgList = function(req, res){
@@ -53,8 +53,8 @@ exports.msgList = function(req, res){
 	var list = _.chain(importedMessageList).filter(function(_msg){
 		return _msg.msgFlag === msgFlag;
 	}).value();
-	console.log('msgList =>');
-	console.dir(list);
+	// console.log('msgList =>');
+	// console.dir(list);
 	res.send(JSON.stringify(list));
 }
 exports.deleteMsg = function(req, res){

@@ -71,7 +71,7 @@ exports.receiveMsg = function(req, res){
 				var resMessage = new NewsMessage(_receivedMsg.FromUserName, _receivedMsg.ToUserName, _receivedMsg.CreateTime);
 				var picUrl = '';
 				resMessage.addItem('状态列表', '', picUrl, picUrl);
-				var msgFlag   = _receivedMsg.Content.substr(0, _receivedMsg.Content.indexOf('#'));
+				var msgFlag   = _receivedMsg.Content.substr(0, _receivedMsg.Content.indexOf(state.separator));
 				var list      = _.chain(importedMessageList).where({msgFlag: msgFlag}).value();
 
 				_.each(list, function(_msg){
@@ -82,7 +82,7 @@ exports.receiveMsg = function(req, res){
 				res.send(xml);				
 			break;
 			case 'tucao':
-				var tucaoContent = _receivedMsg.Content.substr(0, _receivedMsg.Content.indexOf('#'));
+				var tucaoContent = _receivedMsg.Content.substr(_receivedMsg.Content.indexOf(state.separator + 1));
 				var timeStamp = timeFormater();
 				var newTucao = {FromUserName: _receivedMsg.FromUserName, Content: tucaoContent, timeStamp: timeStamp};
 				tucaoMessageList.push(newTucao);
